@@ -42,15 +42,15 @@ Panduan praktis lapangan untuk instalasi cepat paket FTTH (1 PON = maks 128 pela
    * Username: **`admin`** | Password: **`admin`** (atau `admin123`)
 5. Masuk ke menu: **System Management** $\rightarrow$ **Configuration Management** (atau **System** $\rightarrow$ **Config**).
 6. Klik tombol **Choose File / Browse**, pilih file:
-   👉 **`olt/vsol-1600gs/vsol-1600gs-clean.conf`**
+   File: **`olt/vsol-1600gs/vsol-1600gs-clean.conf`**
 7. Klik **Upload / Import Configuration**.
 8. Klik **Save Configuration** $\rightarrow$ lalu klik **Reboot OLT**.
 9. Tunggu OLT selesai reboot (sekitar 1–2 menit).
 
 > [!IMPORTANT]
-> **INGAT: WEB PORT BERUBAH KE 8003!**
-> Setelah reboot, IP OLT berubah menjadi `192.168.8.200` dengan port `8003`.
-> Akses laptop: `http://192.168.8.200:8003` (Password login admin: `@eugine0909@` atau password EugineMedia).
+> **INGAT: WEB PORT BERUBAH KE 8001!**
+> Setelah reboot, IP OLT berubah menjadi `192.168.8.200` dengan port `8001`.
+> Akses laptop: `http://192.168.8.200:8001` (Password login admin: `@eugine0909@` atau password EugineMedia).
 
 ---
 
@@ -81,7 +81,7 @@ Panduan praktis lapangan untuk instalasi cepat paket FTTH (1 PON = maks 128 pela
 Setelah kabel MikroTik dan OLT tersambung:
 1. Pastikan laptop Anda tersambung ke jaringan MikroTik (dapat IP lokal MikroTik).
 2. Buka browser di laptop Anda, akses IP manajemen OLT:
-   👉 **`http://192.168.30.6:8003`**
+   URL: **`http://192.168.30.6:8001`**
 3. Jika halaman login OLT VSOL langsung terbuka, **Jalur Management OLT (VLAN 30) SUDAH 100% SUKSES!**
 
 ---

@@ -43,7 +43,7 @@ Panduan bahasa manusia tanpa istilah rumit untuk memandu Anda colok kabel, cek l
 3. Buka Winbox di laptop $\rightarrow$ Login ke MikroTik klien.
 4. Buka New Terminal di Winbox $\rightarrow$ Jalankan script inspeksi `01-inspect-client-router.rsc` $\rightarrow$ Paste hasilnya ke AI Agent laptop Anda.
 5. AI Agent akan memberikan script akhir $\rightarrow$ Paste script tersebut di Winbox.
-6. Tes dari laptop Anda: Buka browser ke `http://192.168.30.6:8003`.
+6. Tes dari laptop Anda: Buka browser ke `http://192.168.30.6:8001`.
    * **Jika web admin OLT terbuka, berarti jalur kabel LAN MikroTik ke OLT sudah 100% SUKSES!**
 
 ---

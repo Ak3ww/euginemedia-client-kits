@@ -14,14 +14,16 @@ euginemedia-client-kits/
 │   └── AGENTS.md                  # Panduan operasional untuk AI Agent di laptop lapangan
 ├── docs/
 │   ├── PANDUAN_SETUP_LENGKAP.md   # Panduan master langkah demi langkah instalasi (10-15 menit)
+│   ├── PANDUAN_MANUSIA_LAPANGAN.md # Panduan fisik, kabel, splitter optik, dan troubleshooting
 │   └── AI_AGENT_PROMPTS.md        # Template prompt siap copy untuk bertanya ke AI Agent
 ├── olt/
 │   └── vsol-1600gs/
 │       ├── vsol-1600gs-clean.conf # Backup OLT bersih (tanpa ghost ONU, auto-learn aktif)
-│       └── README.md              # Info IP default, port 8003, dan cara upload
+│       └── README.md              # Info IP default, port 8001, SNMP 1611, dan cara upload
 └── mikrotik/
     ├── 01-inspect-client-router.rsc # Script baca kondisi router klien (non-destructive, aman)
     ├── 02-mikrotik-ftth-complete.rsc # Script FTTH lengkap (Cake Queue, Game Mangle, PPPoE Server)
+    ├── reference/                 # Golden reference config CCR2116 EugineMedia
     └── README.md                  # Detail parameter MikroTik
 ```
 
@@ -32,7 +34,7 @@ euginemedia-client-kits/
 | Segmen | VLAN ID | Subnet / IP Gateway | IP Perangkat Target | Keterangan |
 | :--- | :--- | :--- | :--- | :--- |
 | **PPPoE Pelanggan** | VLAN 20 | `192.168.20.1/22` | Pool: `192.168.20.2 - 192.168.22.254` | Trafik internet modem ONT pelanggan |
-| **Management OLT** | VLAN 30 | `192.168.30.1/24` | OLT: `192.168.30.6` (Web Port: `8003`) | Remote web admin OLT tanpa cabut kabel |
+| **Management OLT** | VLAN 30 | `192.168.30.1/24` | OLT: `192.168.30.6` (Web: `8001`, SNMP: `1611`) | Remote web admin & monitoring OLT tanpa cabut kabel |
 | **TR-069 ACS ONT** | VLAN 4000 | `10.40.10.1/24` | Pool: `10.40.10.2 - 10.40.11.254` | Jalur IP internal GenieACS / Remote ONT |
 
 ---

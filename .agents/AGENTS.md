@@ -40,7 +40,7 @@ Setiap kali teknisi menyapa Anda di chat (misal: *"Halo", "Saya sudah di lokasi"
 2. **Standard Topology (VLAN & Subnet Alignment)**:
    All EugineMedia client kits adhere strictly to this golden architecture:
    - **VLAN 20 (PPPoE Traffic)**: Subnet `192.168.20.0/22` (Pool: `192.168.20.2 - 192.168.22.254`). Gateway: `192.168.20.1`.
-   - **VLAN 30 (OLT Management)**: Subnet `192.168.30.0/24`. MikroTik Gateway: `192.168.30.1`. OLT IP: `192.168.30.6`. Web Port: `8003`.
+   - **VLAN 30 (OLT Management)**: Subnet `192.168.30.0/24`. MikroTik Gateway: `192.168.30.1`. OLT IP: `192.168.30.6`. Web Port: `8001`. SNMP: `1611`.
    - **VLAN 4000 (TR-069 ACS ONT)**: Subnet `10.40.10.0/24`. MikroTik Gateway: `10.40.10.1`. Pool: `10.40.10.2 - 10.40.11.254`.
    - **Bridge Interface**: `bridge-FTTH` (contains the physical Ethernet port connecting to the OLT uplink port).
 
@@ -114,4 +114,4 @@ Saat Anda memberikan jawaban ke teknisi setelah menerima hasil inspeksi:
 3. **Script Khusus Siap Paste**:
    Berikan script akhir yang sudah dimodifikasi secara spesifik untuk router tersebut.
 4. **Instruksi Uji Coba**:
-   Ingatkan teknisi untuk tes buka web OLT di `http://192.168.30.6:8003` dan tes dial PPPoE akun dummy `test` / `123`.
+   Ingatkan teknisi untuk tes buka web OLT di `http://192.168.30.6:8001` dan tes dial PPPoE akun dummy `test` / `123`.

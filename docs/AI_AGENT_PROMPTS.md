@@ -24,7 +24,7 @@ Tolong analisa:
 ### Prompt 2: Verifikasi Jika Web OLT Tidak Bisa Dibuka
 
 ```text
-Halo Agent, saya sudah colok kabel dari OLT GE 0/1 ke MikroTik, tapi saat saya buka http://192.168.30.6:8003 di browser, halamannya tidak muncul.
+Halo Agent, saya sudah colok kabel dari OLT GE 0/1 ke MikroTik, tapi saat saya buka http://192.168.30.6:8001 di browser, halamannya tidak muncul.
 
 Berikut konfigurasi IP address dan interface MikroTik saat ini:
 [PASTE OUTPUT /ip address print DAN /interface bridge port print]

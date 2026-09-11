@@ -97,8 +97,11 @@ add action=masquerade chain=srcnat comment="NAT TR-069 ACS" src-address=10.40.10
 # Masquerade Management OLT (supaya laptop lokal bisa buka OLT)
 add action=masquerade chain=srcnat comment="NAT Management OLT" dst-address=192.168.30.6
 
-# Remote Web OLT VSOL dari laptop lokal melalui port 8003
-add action=dst-nat chain=dstnat comment="Remote Web OLT VSOL" dst-port=8003 protocol=tcp to-addresses=192.168.30.6 to-ports=8003
+# Remote Web OLT VSOL dari laptop teknisi / monitoring melalui port 8001
+add action=dst-nat chain=dstnat comment="Remote Web OLT VSOL" dst-port=8001 protocol=tcp to-addresses=192.168.30.6 to-ports=8001
+
+# Remote SNMP OLT VSOL (Port 1611 diteruskan ke UDP 161 OLT)
+add action=dst-nat chain=dstnat comment="Remote SNMP OLT VSOL" dst-port=1611 protocol=udp to-addresses=192.168.30.6 to-ports=161
 
 # ------------------------------------------------------------------------------
 # 9. DNS RESOLVER

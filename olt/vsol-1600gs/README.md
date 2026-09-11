@@ -10,9 +10,10 @@ File konfigurasi ini adalah salinan identik dari standar produksi EugineMedia, n
 
 * **IP Manajemen Awal (VLAN 1)**: `192.168.8.200`
 * **IP Manajemen OLT (VLAN 30)**: `192.168.30.6` (Gateway: `192.168.30.1`)
-* **Web Admin Port**: **`8003`** (Wajib cantumkan port saat akses browser!)
-  * Akses lokal laptop: `http://192.168.8.200:8003`
-  * Akses via jaringan MikroTik: `http://192.168.30.6:8003`
+* **Web Admin Port**: **`8001`** (Wajib cantumkan port saat akses browser!)
+  * Akses lokal laptop: `http://192.168.8.200:8001`
+  * Akses via jaringan MikroTik: `http://192.168.30.6:8001`
+* **SNMP Monitoring**: Port UDP standard `161` (diteruskan dari MikroTik DST-NAT port `1611`). Community: `public` (read-only), `private` (read-write).
 * **Login Admin**: Username `admin`, Password `@eugine0909@` (atau password default EugineMedia).
 
 ---

@@ -5,39 +5,44 @@
 # ==============================================================================
 
 :put "=================================================="
-:put "=== 1. DEFAULT GATEWAY & SUMBER INTERNET (WAN) ==="
+:put "=== 1. TIPE ROUTERBOARD & VERSI ROUTEROS ==="
+:put "=================================================="
+/system resource print
+
+:put "\n=================================================="
+:put "=== 2. DEFAULT GATEWAY & SUMBER INTERNET (WAN) ==="
 :put "=================================================="
 /ip route print where dst-address=0.0.0.0/0
 /ip dhcp-client print
 /interface pppoe-client print
 
 :put "\n=================================================="
-:put "=== 2. IP ADDRESSES EKSISTING DI ROUTER ==="
+:put "=== 3. IP ADDRESSES EKSISTING DI ROUTER ==="
 :put "=================================================="
 /ip address print
 
 :put "\n=================================================="
-:put "=== 3. DAFTAR INTERFACE & STATUS RUNNING/KOSONG ==="
+:put "=== 4. DAFTAR INTERFACE & STATUS RUNNING/KOSONG ==="
 :put "=================================================="
 /interface print where type="ether" or type="bridge" or type="vlan" or type="pppoe-out"
 
 :put "\n=================================================="
-:put "=== 4. IP POOL EKSISTING ==="
+:put "=== 5. IP POOL EKSISTING ==="
 :put "=================================================="
 /ip pool print
 
 :put "\n=================================================="
-:put "=== 5. FIREWALL NAT MASQUERADE EKSISTING ==="
+:put "=== 6. FIREWALL NAT MASQUERADE EKSISTING ==="
 :put "=================================================="
 /ip firewall nat print
 
 :put "\n=================================================="
-:put "=== 6. FIREWALL FILTER EKSISTING (DROP/ACCEPT) ==="
+:put "=== 7. FIREWALL FILTER EKSISTING (DROP/ACCEPT) ==="
 :put "=================================================="
 /ip firewall filter print
 
 :put "\n=================================================="
-:put "=== 7. PROFIL PPP & QUEUES EKSISTING ==="
+:put "=== 8. PROFIL PPP & QUEUES EKSISTING ==="
 :put "=================================================="
 /ppp profile print
 /queue type print where kind="cake" or kind="sfq"

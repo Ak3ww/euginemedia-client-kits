@@ -100,6 +100,17 @@ When the technician pastes the inspection output, you MUST classify the client i
     `/interface bridge port add bridge=bridge-FTTH interface=ether4`
   - Ini menjamin trafik FTTH OLT terisolasi bersih dari komputer kantor/toko lama klien.
 
+### Skenario G: RouterOS v6 vs RouterOS v7 (Kompatibilitas Queue Cake)
+* **Indikator Inspeksi**:
+  - `/system resource print`: Kolom `version:` menunjukkan versi `6.xx.x` atau `7.xx.x`, dan `board-name:` menunjukkan tipe fisik RouterBoard.
+* **Tindakan Agent**:
+  - **Jika RouterOS v7 (versi 7.x)**: Cake SQM didukung 100%. Gunakan script standar dengan `/queue type add kind=cake ...`.
+  - **Jika RouterOS v6 (versi 6.x)**:
+    - **KRUSIAL**: RouterOS v6 **BELUM MENDUKUNG CAKE QUEUE** (`kind=cake` akan menghasilkan error `invalid value for argument kind`).
+    - Otomatis hilangkan baris `/queue type add kind=cake ...` dan buat PPP Profile menggunakan queue standard / default:
+      `/ppp profile add name=FTTH-10M rate-limit=10M/10M ... queue-type=default-small` (atau `default`).
+    - Beritahukan teknisi bahwa router klien masih v6, dan tawarkan apakah ingin di-upgrade ke v7 setelah setup selesai jika hardware klien memadai (seperti RB750Gr3, RB3011, RB4011).
+
 ---
 
 ### Aturan Wajib: Konstruksi Dinamis NAT Masquerade PPPoE
@@ -119,8 +130,9 @@ Jangan pernah mencetak rule NAT Masquerade secara sembarangan tanpa analisa insp
 
 Saat Anda memberikan jawaban ke teknisi setelah menerima hasil inspeksi:
 1. **Identifikasi Skenario**:
-   Sebutkan dengan jelas: *"Router klien terdeteksi berada di **[Skenario A / B / C / D / E / F]**."*
+   Sebutkan dengan jelas: *"Router klien terdeteksi berada di **[Skenario A / B / C / D / E / F / G]**."*
 2. **Detail Temuan**:
+   - Tipe RouterBoard & Versi RouterOS: `[misal RB750Gr3 - ROS v7.15.2 (Cake Aktif) / ROS v6.49 (Queue Standard)]`
    - Port WAN Klien: `[interface WAN]`
    - Port yang dipilih untuk OLT: `[etherX]`
    - Status Subnet IP Pool: `[Aman pakai 192.168.20.x / Digeser ke 10.20.x]`

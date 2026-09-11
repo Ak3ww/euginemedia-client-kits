@@ -8,6 +8,8 @@
 :put "=== 1. DEFAULT GATEWAY & SUMBER INTERNET (WAN) ==="
 :put "=================================================="
 /ip route print where dst-address=0.0.0.0/0
+/ip dhcp-client print
+/interface pppoe-client print
 
 :put "\n=================================================="
 :put "=== 2. IP ADDRESSES EKSISTING DI ROUTER ==="
@@ -17,7 +19,7 @@
 :put "\n=================================================="
 :put "=== 3. DAFTAR INTERFACE & STATUS RUNNING/KOSONG ==="
 :put "=================================================="
-/interface print where type="ether" or type="bridge" or type="vlan"
+/interface print where type="ether" or type="bridge" or type="vlan" or type="pppoe-out"
 
 :put "\n=================================================="
 :put "=== 4. IP POOL EKSISTING ==="

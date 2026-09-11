@@ -50,26 +50,27 @@ Setiap kali teknisi menyapa Anda di chat (misal: *"Halo", "Saya sudah di lokasi"
 
 When the technician pastes the inspection output, you MUST classify the client into one of these 5 scenarios:
 
-### Skenario A: Klien Menggunakan Modem ISP Biasa (Indihome / Biznet Home / FirstMedia via DHCP Client)
+### Skenario A: Klien Menggunakan Modem ISP DHCP Client (IndiBiz / IndiHome / Biznet / FirstMedia via DHCP Client)
 * **Indikator Inspeksi**:
-  - `/ip route print`: Default route `dst-address=0.0.0.0/0` menunjuk gateway `192.168.1.1` atau `192.168.100.1` via `ether1`.
+  - `/ip route print`: Default route `dst-address=0.0.0.0/0` menunjuk gateway `192.168.1.1`, `192.168.18.1`, atau `192.168.100.1` via `ether1`.
   - `/ip dhcp-client print`: Ada DHCP Client aktif di `ether1`.
 * **Tindakan Agent**:
   - `ether1` adalah WAN (HARAM DISENTUH / JANGAN DIMASUKKAN KE BRIDGE-FTTH).
   - Pilih port ether lain yang `running=false` (misal `ether3`) untuk kabel ke OLT.
   - Tambahkan NAT disesuaikan: `/ip firewall nat add chain=srcnat action=masquerade src-address=192.168.20.0/22 out-interface=ether1 comment="NAT PPPoE FTTH"` (atau universal tanpa out-interface jika WAN berganti dinamis).
 
-### Skenario B: Klien Menggunakan Modem Dial PPPoE Client (pppoe-out1)
+### Skenario B: Klien Menggunakan Modem Bridge + Dial PPPoE Client (IndiBiz / IndiHome via pppoe-out1)
 * **Indikator Inspeksi**:
   - `/ip route print`: Default route menunjuk ke interface `pppoe-out1`.
+  - `/interface pppoe-client print`: Ada interface PPPoE Client dial aktif (misal user dial IndiBiz).
 * **Tindakan Agent**:
   - Sumber internet adalah `pppoe-out1`.
   - Tambahkan NAT disesuaikan: `/ip firewall nat add chain=srcnat action=masquerade src-address=192.168.20.0/22 out-interface=pppoe-out1 comment="NAT PPPoE FTTH via Dial"`.
 
-### Skenario C: Klien Menggunakan IP Publik Statis / Dedicated Leased Line
+### Skenario C: Klien Menggunakan IP Publik Statis (IndiBiz Dedicated / Astinet / Leased Line)
 * **Indikator Inspeksi**:
   - `/ip address print`: Ada IP Publik (misal `/30` atau `/29`) di port `ether1` atau `sfp-sfpplus1`.
-  - `/ip route print`: Gateway menunjuk ke IP Gateway ISP (misal IP SMI / Astinet).
+  - `/ip route print`: Gateway menunjuk ke IP Gateway ISP (misal IP SMI / Astinet / IndiBiz Dedicated).
 * **Tindakan Agent**:
   - Kunci interface tersebut sebagai WAN.
   - Tambahkan NAT disesuaikan: `/ip firewall nat add chain=srcnat action=masquerade src-address=192.168.20.0/22 out-interface=[nama_interface_WAN] comment="NAT PPPoE FTTH via Dedicated"`.

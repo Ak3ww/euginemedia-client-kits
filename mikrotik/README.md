@@ -27,6 +27,10 @@ Folder ini berisi script RouterOS v7 untuk mengaktifkan layanan PPPoE FTTH yang 
    Default: `192.168.20.0/22` (Kapasitas ±1.000 user).
    Jika klien sudah menggunakan subnet `192.168.20.x`, AI Agent akan merekomendasikan subnet lain (misal `10.20.0.0/22`).
 
+3. **Firewall NAT Masquerade (Wajib Selaras Hasil Analisa)**:
+   * Parameter `src-address` pada NAT Masquerade WAJIB sama persis dengan subnet IP pool pelanggan yang dipakai (`192.168.20.0/22` atau `10.20.0.0/22`).
+   * Jika WAN klien teridentifikasi spesifik (`ether1` atau dial `pppoe-out1`), sertakan `out-interface=[interface_WAN]` atau `out-interface-list=WAN`.
+
 ---
 
 ## 3. Standarisasi Port Remote & SNMP OLT:

@@ -57,14 +57,14 @@ When the technician pastes the inspection output, you MUST classify the client i
 * **Tindakan Agent**:
   - `ether1` adalah WAN (HARAM DISENTUH / JANGAN DIMASUKKAN KE BRIDGE-FTTH).
   - Pilih port ether lain yang `running=false` (misal `ether3`) untuk kabel ke OLT.
-  - Tambahkan NAT: `/ip firewall nat add chain=srcnat action=masquerade src-address=192.168.20.0/22 comment="NAT PPPoE FTTH"`.
+  - Tambahkan NAT disesuaikan: `/ip firewall nat add chain=srcnat action=masquerade src-address=192.168.20.0/22 out-interface=ether1 comment="NAT PPPoE FTTH"` (atau universal tanpa out-interface jika WAN berganti dinamis).
 
 ### Skenario B: Klien Menggunakan Modem Dial PPPoE Client (pppoe-out1)
 * **Indikator Inspeksi**:
   - `/ip route print`: Default route menunjuk ke interface `pppoe-out1`.
 * **Tindakan Agent**:
   - Sumber internet adalah `pppoe-out1`.
-  - Tambahkan NAT: `/ip firewall nat add chain=srcnat out-interface=pppoe-out1 action=masquerade comment="NAT PPPoE FTTH via Dial"`.
+  - Tambahkan NAT disesuaikan: `/ip firewall nat add chain=srcnat action=masquerade src-address=192.168.20.0/22 out-interface=pppoe-out1 comment="NAT PPPoE FTTH via Dial"`.
 
 ### Skenario C: Klien Menggunakan IP Publik Statis / Dedicated Leased Line
 * **Indikator Inspeksi**:
@@ -72,7 +72,7 @@ When the technician pastes the inspection output, you MUST classify the client i
   - `/ip route print`: Gateway menunjuk ke IP Gateway ISP (misal IP SMI / Astinet).
 * **Tindakan Agent**:
   - Kunci interface tersebut sebagai WAN.
-  - Masquerade trafik PPPoE pelanggan keluar melalui IP / interface tersebut.
+  - Tambahkan NAT disesuaikan: `/ip firewall nat add chain=srcnat action=masquerade src-address=192.168.20.0/22 out-interface=[nama_interface_WAN] comment="NAT PPPoE FTTH via Dedicated"`.
 
 ### Skenario D: Subnet 192.168.20.x atau IP Pool SUDAH DIGUNAKAN di Jaringan Klien
 * **Indikator Inspeksi**:
@@ -80,7 +80,7 @@ When the technician pastes the inspection output, you MUST classify the client i
 * **Tindakan Agent (Auto-Shift)**:
   - JANGAN gunakan `192.168.20.0/22` karena akan bentrok!
   - Geser otomatis ke subnet alternatif: **`10.20.0.0/22`** (Gateway: `10.20.0.1`, Pool: `10.20.0.2 - 10.20.3.254`).
-  - Beritahukan teknisi bahwa subnet digeser ke `10.20.0.0/22` untuk menghindari tabrakan IP.
+  - **KRUSIAL**: Seluruh rule firewall (NAT Masquerade & Mangle Game) WAJIB diganti `src-address=10.20.0.0/22`! Jangan sampai pool diganti tetapi NAT masih mengarah ke subnet lama.
 
 ### Skenario E: Klien Sudah Memiliki Paket / Profil PPP Eksisting
 * **Indikator Inspeksi**:
@@ -98,6 +98,19 @@ When the technician pastes the inspection output, you MUST classify the client i
     `/interface bridge add name=bridge-FTTH`
     `/interface bridge port add bridge=bridge-FTTH interface=ether4`
   - Ini menjamin trafik FTTH OLT terisolasi bersih dari komputer kantor/toko lama klien.
+
+---
+
+### Aturan Wajib: Konstruksi Dinamis NAT Masquerade PPPoE
+Jangan pernah mencetak rule NAT Masquerade secara sembarangan tanpa analisa inspeksi:
+1. **Parameter `src-address`**:
+   - Jika subnet standar: `src-address=192.168.20.0/22`.
+   - Jika terjadi tabrakan subnet (Skenario D): WAJIB diubah menjadi `src-address=10.20.0.0/22`.
+2. **Parameter `out-interface` / `out-interface-list`**:
+   - Jika router klien menggunakan DHCP Client pada port WAN tertentu (misal `ether1`): tambahkan `out-interface=ether1`.
+   - Jika router klien menggunakan PPPoE Client dial out: tambahkan `out-interface=pppoe-out1`.
+   - Jika router klien sudah memiliki interface list `WAN`: gunakan `out-interface-list=WAN`.
+   - Jika multi-WAN / failover dinamis / routing kompleks: gunakan bentuk universal `src-address=[SUBNET_PPPOE]` tanpa out-interface agar otomatis mengikuti tabel routing default MikroTik klien.
 
 ---
 

@@ -85,10 +85,13 @@ add action=mark-connection chain=prerouting dst-port="7086-7995,10039,10096,1145
 add action=mark-packet chain=forward connection-mark=pkg-game new-packet-mark=paket-game passthrough=no
 
 # ------------------------------------------------------------------------------
-# 8. FIREWALL NAT (UNIVERSAL MASQUERADE & REMOTE OLT)
+# 8. FIREWALL NAT (MASQUERADE & REMOTE OLT)
 # ------------------------------------------------------------------------------
 /ip firewall nat
 # Masquerade Internet PPPoE Pelanggan
+# CATATAN: Rule ini wajib disesuaikan oleh AI Agent setelah inspeksi router klien:
+# - Subnet src-address wajib mengikuti subnet IP pool pelanggan (192.168.20.0/22 atau 10.20.0.0/22)
+# - Jika interface WAN klien spesifik (misal ether1 atau pppoe-out1), tambahkan out-interface=<WAN>
 add action=masquerade chain=srcnat comment="NAT PPPoE Pelanggan" src-address=192.168.20.0/22
 
 # Masquerade TR-069 ACS

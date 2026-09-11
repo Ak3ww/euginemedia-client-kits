@@ -16,7 +16,7 @@ Tolong analisa:
 1. Port mana yang merupakan sumber internet (WAN) mereka?
 2. Port mana yang kosong dan aman untuk dicolok ke OLT?
 3. Apakah ada subnet IP yang bentrok dengan subnet FTTH kita (192.168.20.0/22, 192.168.30.0/24, 10.40.10.0/24)?
-4. Tolong buatkan script MikroTik yang sudah disesuaikan dan siap saya paste ke Winbox tanpa mengganggu jaringan lama klien!
+4. Tolong buatkan script MikroTik yang sudah disesuaikan dan siap saya paste ke Winbox tanpa mengganggu jaringan lama klien (pastikan rule NAT Masquerade diselaraskan dengan interface WAN dan subnet pool PPPoE yang dipilih)!
 ```
 
 ---
